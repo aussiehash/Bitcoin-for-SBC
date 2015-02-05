@@ -135,9 +135,9 @@ function install_qr_tools
 		git clone https://github.com/lincolnloop/python-qrcode.git
 			cd python-qrcode
 	echo "$(tput setaf 1)$(tput bold mode)Installing Pillow, takes 7 mins approx - then pymaging$(tput sgr0)"
-		pip install Pillow
-		pip install git+git://github.com/ojii/pymaging.git#egg=pymaging
-		pip install git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
+		sudo pip install Pillow
+		sudo pip install git+git://github.com/ojii/pymaging.git#egg=pymaging
+		sudo pip install git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
 		sudo python setup.py install
 	echo "$(tput setaf 1)$(tput bold mode)Installing angular-qr$(tput sgr0)"
 			cd ..
@@ -210,7 +210,7 @@ function install_greenaddress
 function install_browsers
 {
 	echo "$(tput setaf 1)$(tput bold mode)Installing Chromium 22 and Iceweasel$(tput sgr0)"
-		sudo apt-get --yes install chromium iceweasel
+		sudo apt-get --yes install iceweasel chromium
 }
 function install_pybitcoin
 {
@@ -291,7 +291,7 @@ until [ "$selection" = "0" ]; do
 		A ) install_coinkite ; press_enter ;;
 		B ) download_trezor_firmware ; press_enter ;;
 		C ) install_bip39 ; press_enter ;;
-        D ) install_passguardian ; press_enter ;;
+        	D ) install_passguardian ; press_enter ;;
 		E ) install_greenaddress ; press_enter ;;
 		F ) install_browsers ; press_enter ;;
 		G ) install_pybitcoin ; press_enter ;;
