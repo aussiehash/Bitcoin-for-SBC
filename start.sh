@@ -130,7 +130,6 @@ function install_qr_tools
 {
 	echo "$(tput setaf 1)$(tput bold mode)Installing QR code python - qr, QTQR, zbar, and angular javascript$(tput sgr0)"
 	echo "$(tput setaf 1)$(tput bold mode)This can be combined with : raspistill -o capture.jpg$(tput sgr0)"
-	echo "$(tput setaf 1)$(tput bold mode)Usage : qr 'some test' > test.png"$(tput sgr0)"
 			cd ~
 			mkdir QR
 			cd QR
