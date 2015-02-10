@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.0.8.2
-# Last updated on, 3nd Jan 2015
+# v0.0.8.5
+# Last updated on, 10th Feb 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -128,7 +128,9 @@ function install_armory
 }
 function install_qr_tools
 {
-	echo "$(tput setaf 1)$(tput bold mode)Installing QR code python - qr, QTQR, and angular javascript$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Installing QR code python - qr, QTQR, zbar, and angular javascript$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)This can be combined with : raspistill -o capture.jpg$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Usage : qr 'some test' > test.png"$(tput sgr0)"
 			cd ~
 			mkdir QR
 			cd QR
@@ -139,8 +141,10 @@ function install_qr_tools
 		sudo pip install git+git://github.com/ojii/pymaging.git#egg=pymaging
 		sudo pip install git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
 		sudo python setup.py install
-	echo "$(tput setaf 1)$(tput bold mode)Installing QTQR$(tput sgr0)"	
-		sudo apt-get install qtqr
+	echo "$(tput setaf 1)$(tput bold mode)Installing qtqr, Usage: qtqr$(tput sgr0)"	
+		sudo apt-get --yes install qtqr
+	echo "$(tput setaf 1)$(tput bold mode)Installing zbar, Usage: zbarimg -d test.png$(tput sgr0)"	
+		sudo apt-get --yes install zbar-tools
 	echo "$(tput setaf 1)$(tput bold mode)Installing angular-qr$(tput sgr0)"
 			cd ..
 		git clone https://github.com/janantala/angular-qr.git
