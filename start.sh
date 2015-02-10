@@ -1,7 +1,7 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.0.8.5
+# v0.0.8.7
 # Last updated on, 10th Feb 2015
 
 ## local variable
@@ -122,7 +122,7 @@ function install_armory
 		git clone git://github.com/etotheipi/BitcoinArmory.git
 			cd BitcoinArmory
 	echo "$(tput setaf 1)$(tput bold mode)Installing libcrypto++$(tput sgr0)"
-		sudo apt-get --yes install libcrypto++-dev #(23mb)
+		sudo apt-get --yes install libcrypto++-dev #(23mb) ## Armory works without this library
 #		make # (make disabled, fails after 16min on Raspbian Pi)"
 #		python ArmoryQt.py
 }
@@ -215,7 +215,11 @@ function install_greenaddress
 function install_browsers
 {
 	echo "$(tput setaf 1)$(tput bold mode)Installing Chromium 22 and Iceweasel$(tput sgr0)"
-		sudo apt-get --yes install iceweasel chromium
+		sudo apt-get --yes install chromium
+		sudo apt-get --yes install iceweasel
+		sudo apt-get --yes install chromium-browser #BBB Ubuntu 14.04 package v40 #http://elinux.org/Beagleboard:Ubuntu_On_BeagleBone_Black#Ubuntu_Precise_On_Micro_SD
+		sudo apt-get --yes install firefox #BBB Ubuntu 14.04 package
+	
 }
 function install_pybitcoin
 {
@@ -232,6 +236,8 @@ function install_pybitcoin
 
 # function install_pi_qr_reader
 # {
+#sudo apt-get install python-picamera
+### note http://www.raspberrypi.org/forums/viewtopic.php?f=32&t=98466
 # }
 # function install_cups_pdf
 # {
@@ -275,7 +281,7 @@ until [ "$selection" = "0" ]; do
 	echo "C - Install BIP39 scripts"
 	echo "D - Install PassGuardian"
 	echo "E - Install GreenAddress"
-	echo "F - Install Chromium 22 and Iceweasel 31.2"
+	echo "F - Install Chromium 22 and Iceweasel 31.2 on Raspbian, Chromium 40 + Firefox on BBB Ubuntu 14.04"
 	echo "G - Vitalik Buterin's pybitcoin tools"
 	echo ""
 	echo "0 - exit program"
