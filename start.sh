@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.0.8.7
-# Last updated on, 10th Feb 2015
+# v0.0.8.9
+# Last updated on, 23rd Feb 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -33,7 +33,7 @@ function install_trezor
 #		sudo apt-get install python-dev python-setuptools cython git libusb-1.0-0-dev libudev-dev # with cython
 		sudo apt-get --yes install python-dev python-setuptools git libusb-1.0-0-dev libudev-dev ## without cython (on debian/wheezy, only cython 0.15.1 is available)
 		sudo apt-get --yes install python-qt4 python-dev pyqt-dev-tools python-pip # from electrum, python-qt4 necessary for BTChip # package pyqt-dev-tools is ubuntu only
-		sudo apt-get install python-usb libusb-dev
+		sudo apt-get --yes install python-usb libusb-dev
  		sudo apt-get --yes install python-pip
 	echo "$(tput setaf 1)$(tput bold mode)pip install steps .... cython build will take 40+ mins !!$(tput sgr0)"
 		sudo pip install --upgrade pyusb 
@@ -114,17 +114,21 @@ function install_armory
 			cd armory
 #		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.92.3_rpi_bundle.tar.gz
 #		sudo tar -xvzf armory_0.92.3_rpi_bundle.tar.gz
-		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_raspbian-armhf.tar.gz
-		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
+#		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_raspbian-armhf.tar.gz
+#		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
+		https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
+		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
 			cd OfflineBundle
-		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
+		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
 			cd ..
 		sudo apt-get --yes install git-core build-essential pyqt4-dev-tools swig libqtcore4 libqt4-dev python-qt4 python-dev python-twisted python-psutil
-		git clone git://github.com/etotheipi/BitcoinArmory.git
-			cd BitcoinArmory
+#		git clone git://github.com/etotheipi/BitcoinArmory.git
+#			cd BitcoinArmory
 	echo "$(tput setaf 1)$(tput bold mode)Installing libcrypto++$(tput sgr0)"
 		sudo apt-get --yes install libcrypto++-dev #(23mb) ## Armory works without this library
+	echo "$(tput setaf 1)$(tput bold mode)Correcting privileges for ODROID C1/ubuntu 14.04$(tput sgr0)"
+		sudo chmod +755 /usr/lib/armory/qt4reactor.py
 #		make # (make disabled, fails after 16min on Raspbian Pi)"
 #		python ArmoryQt.py
 }
