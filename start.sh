@@ -112,8 +112,10 @@ function install_armory
 			cd ~
 			mkdir armory
 			cd armory
-		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.92.3_rpi_bundle.tar.gz
-		sudo tar -xvzf armory_0.92.3_rpi_bundle.tar.gz
+#		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.92.3_rpi_bundle.tar.gz
+#		sudo tar -xvzf armory_0.92.3_rpi_bundle.tar.gz
+		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_raspbian-armhf.tar.gz
+		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
 			cd OfflineBundle
 		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
@@ -186,6 +188,7 @@ function download_trezor_firmware
 			cd trezor
 			mkdir firmware
 			cd firmware
+		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.1.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.0.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.2.1.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.2.0.bin.hex
