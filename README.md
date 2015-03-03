@@ -3,7 +3,7 @@ Bitcoin-for-SBC
 
 All-in-one script for generating, printing, initializing, splitting, signing and restoring Bitcoin software, hardware and multisig wallets on a Single Board Computer.
 
-After successful installation and test vectors, you can disable online access and remain air-gapped for subsequent use.
+After successful installation and test vectors, you can permenantly disable online access and remain air-gapped for subsequent use.
 
 After generating / restoring bitcoin seeds, should you want to update libraries, the safest option would be to format and wipe your SD/MicroSD/EMC module, reinstall the OS, and start afresh.
 
@@ -23,11 +23,16 @@ Bitcoiners with an interest in security, who want a cheap simple  and secure col
 	* Test restoring a BIP39 mnemonic on an airgapped machine
 	* Upgrading/Downgrading TREZOR firmware
 	* Generating a Armory wallet offline, exporting/printing the backup, and exporting the watch only "online" wallet for generating transactions
+	* Offline multisig signing - Armory lockbox, Coinkite +/- btchip, Electrum 2 multisig.
 
 # Environment / OS
 Pi B/B+ : NOOBS Raspian (source)
 
 Beaglebone Black rev C : OS (source)
+
+Pi 2 : Raspbian
+
+Odroid C1 : Ubuntu 14.04
 
 Piper 1.12 ISO (source)
 
@@ -73,3 +78,4 @@ Piper 1.12 ISO (source)
 # ToDo
 		* ? CUPS / CUPS PDF for print to PDF function ?
 		* Text font for Command Line such that QR codes are displayed properly
+		* ? Airgapped offline fresh install  - write raspbian ISO, transfer and install armory offline bundle.  No `apt-get update` or `upgrade` or `install`
