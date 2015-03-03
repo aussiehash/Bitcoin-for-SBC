@@ -9,7 +9,11 @@ After generating / restoring bitcoin seeds, should you want to update libraries,
 
 Alternatively you could purchase a new flash memory card and reinstall
 
-**Note : this installation takes approx 200Mb download and >1 hour duration**
+Minimum hardware supported is Pi B as 512Mb RAM required to compile cython
+
+See installation notes here : http://www.reddit.com/r/Bitcoin/comments/2uv0i8/guide_setting_up_trezor_electrum_202beta_armory/
+
+**Note : The full "!" installation takes approx 200Mb-600Mb download and up to 2 hours on a Pi B+, and 40mins on a Pi 2 / C1**
 
 # Intended Audience
 
