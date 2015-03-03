@@ -9,11 +9,11 @@ After generating / restoring bitcoin seeds, should you want to update libraries,
 
 Alternatively you could purchase a new flash memory card and reinstall
 
-Minimum hardware supported is Pi B as 512Mb RAM required to compile cython
+Minimum hardware is Pi B (512Mb RAM required to compile cython), 8GB MicroSD with expanded root partition.
 
 See installation notes here : http://www.reddit.com/r/Bitcoin/comments/2uv0i8/guide_setting_up_trezor_electrum_202beta_armory/
 
-**Note : The full "!" installation takes approx 200Mb-600Mb download and up to 2 hours on a Pi B+, and 40mins on a Pi 2 / C1**
+**Note : Full "!" installation downloads 200Mb-600Mb and takes up to 2 hours on Pi B+ or 40mins on a Pi 2 / C1**
 
 # Intended Audience
 
@@ -59,6 +59,7 @@ Piper 1.12 ISO (source)
 		* install BTChip + Libs
 		* install Electrum 2 + Libs
 		* install Armory + Libs
+		* install MultibitHD beta (untested)
 	* Optional installation of non-core apps
 		* install Bitaddress
 		* install Coinkite + BitMEX signing beta tools
@@ -71,9 +72,9 @@ Piper 1.12 ISO (source)
 		* install Shamir's Secret Sharing Scheme
 		* Install PassGuardian
 		* Install GreenAddress
-		* Install Chromium and Iceweasel
+		* Install Chromium and Iceweasel/Firefox
 	* Maintenance
-		* Test installation vectors
+		* Test hardwarewallet installation
 		* Upgrade all packages
 		* Installing Raspberry Pi camera(source) QR reading importing support
 	* Special functions
@@ -83,3 +84,4 @@ Piper 1.12 ISO (source)
 		* ? CUPS / CUPS PDF for print to PDF function ?
 		* Text font for Command Line such that QR codes are displayed properly
 		* ? Airgapped offline fresh install  - write raspbian ISO, transfer and install armory offline bundle.  No `apt-get update` or `upgrade` or `install`
+		* ? plug-up security key udev rule
