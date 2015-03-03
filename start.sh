@@ -1,12 +1,14 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.0.8.9
-# Last updated on, 23rd Feb 2015
+# v0.0.9
+# Last updated on, 3rd Mar 2015
 
 ## local variable
 #newest_armory_rpi=""
 #trezor_firmwares=""
+#newest_electrum_unix=""
+#newest_multibit=""
 
 ###############################
 #  User Defined Functions    #
@@ -76,7 +78,7 @@ function install_ledger
 			cd samples
 		python getFirmwareVersion.py #btchip.btchipException.BTChipException: Exception : No dongle found
 			cd ../btchip
-#		python btchipPersoWizard.py ImportError: No module named PyQt4
+		python btchipPersoWizard.py #ImportError: No module named PyQt4
 	echo "$(tput setaf 1)$(tput bold mode)Installing c-api$(tput sgr0)"
 			cd ../..
 		git clone https://github.com/LedgerHQ/btchip-c-api.git
@@ -105,6 +107,8 @@ function install_electrum
 		python mki18n.py
 		python setup.py sdist --format=zip,gztar
 		sudo python setup.py install
+### official electrum release
+#		sudo pip install https://download.electrum.org/Electrum-2.0.tar.gz#md5=ad9db1c037babe0829c55e3a3c1f7630
 }
 function install_armory
 {
@@ -129,8 +133,6 @@ function install_armory
 		sudo apt-get --yes install libcrypto++-dev #(23mb) ## Armory works without this library
 	echo "$(tput setaf 1)$(tput bold mode)Correcting privileges for ODROID C1/ubuntu 14.04$(tput sgr0)"
 		sudo chmod +755 /usr/lib/armory/qt4reactor.py
-#		make # (make disabled, fails after 16min on Raspbian Pi)"
-#		python ArmoryQt.py
 }
 function install_qr_tools
 {
@@ -236,7 +238,64 @@ function install_pybitcoin
 			cd pybitcointools
 		sudo python setup.py install
 }
-
+function install_multibit
+{
+	echo "$(tput setaf 1)$(tput bold mode)Installing MultiBit HD Beta -- UNTESTED$(tput sgr0)"
+			cd ~
+			mkdir multibit-hd
+			cd multibit-hd
+		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.0.7beta/multibit-hd-unix-0.0.7beta.sh
+		wget https://beta.multibit.org/en/help/hd0.1/how-to-install-linux.html
+		chmod +x multibit-hd-unix-0.0.7beta.sh
+		./multibit-hd-unix-0.0.7beta.sh
+}
+function install_source
+{
+	echo "$(tput setaf 1)$(tput bold mode)pull Armory github repo$(tput sgr0)"
+			cd ~
+			mkdir armory
+			cd armory
+		git clone git://github.com/etotheipi/BitcoinArmory.git
+			cd BitcoinArmory
+	echo "$(tput setaf 1)$(tput bold mode)Installing libcrypto++$(tput sgr0)"
+		sudo apt-get --yes install libcrypto++-dev #(23mb) ## Armory works without this library
+#		make # (make disabled, fails after 16min on Raspbian Pi B+, also fails on C1, Pi 2)"
+#		python ArmoryQt.py
+}
+function test_hardwarewallet
+{
+	echo "$(tput setaf 1)$(tput bold mode)Testing Trezor$(tput sgr0)"
+			cd ~
+			cd trezor
+			cd python-trezor
+	echo "$(tput setaf 1)$(tput bold mode)helloworld$(tput sgr0)"
+		python helloworld.py
+	echo "$(tput setaf 1)$(tput bold mode)Testing btchip HW-1$(tput sgr0)"
+			cd ~
+			cd btchip
+	echo "$(tput setaf 1)$(tput bold mode)Testing btchip-python(tput sgr0)"
+			cd btchip-python
+			cd samples
+		python getFirmwareVersion.py #btchip.btchipException.BTChipException: Exception : No dongle found
+	echo "$(tput setaf 1)$(tput bold mode)Testing pyusb and PyQt4(tput sgr0)"
+			cd ../btchip
+		python btchipPersoWizard.py #ImportError: No module named PyQt4
+	echo "$(tput setaf 1)$(tput bold mode)Testing btchip-c-api$(tput sgr0)"
+			cd ../..
+			cd btchip-c-api
+			cd bin
+		./btchip_getFirmwareVersion #No dongle found
+}
+install_armory_companion
+{
+	echo "$(tput setaf 1)$(tput bold mode)Install Armory Companion Python (requires python-qrcode and python six$(tput sgr0)"
+			cd ~
+			mkdir armory
+			cd armory
+		git clone https://github.com/hank/armorycompanion-python.git
+	echo "$(tput setaf 1)$(tput bold mode)Install Armory Companion Android(tput sgr0)"
+		git clone https://github.com/hank/armorycompanion.git
+}
 ###################################
 # Future To Do List               #
 ###################################
@@ -273,9 +332,9 @@ selection=
 until [ "$selection" = "0" ]; do
 	echo ""
 	echo "$(tput setaf 7)$(tput bold mode)RASPBERRY PI COLD OFFLINE SETUP SCRIPT$(tput sgr0)"
-	echo "! - Install everything, no prompts. Recommended. (Approx 200-600Mb, 1-2 hrs)"
+	echo "! - Install 1-G, no prompts. Recommended. (Approx 200-600Mb, 1-2 hrs)"
 	echo "1 - Update Raspian/Debian (on the Model B+ 8GB NOOBs edition, 392Mb and > 1hour)"
-	echo "2 - Install Trezor + Libs (Cython build takes 45 mins)"
+	echo "2 - Install Trezor + Libs (Cython build takes 15 mins Pi 2 - 40 mins Pi B+)"
 	echo "3 - Install Ledger/BTChip + Libs"
 	echo "4 - Install Electrum 2 + Libs"
 	echo "5 - Install Armory + Libs (Approx 10 mins and 175Mb)"
@@ -290,6 +349,11 @@ until [ "$selection" = "0" ]; do
 	echo "E - Install GreenAddress"
 	echo "F - Install Chromium 22 and Iceweasel 31.2 on Raspbian, Chromium 40 + Firefox on BBB Ubuntu 14.04"
 	echo "G - Vitalik Buterin's pybitcoin tools"
+	echo "-------------------------------------------------------------------------------------------------"
+	echo "H - Multibit HD beta 0.0.7 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)
+	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)
+	echo "J - Test installation of Trezor (helloworld) and btchip (pyusb, c-api, python-api).  Insert hardware wallet first ! "
+	echo "K - Install Armory Companion (OPTIONS, untested)"
 	echo ""
 	echo "0 - exit program"
 	echo ""
@@ -313,6 +377,10 @@ until [ "$selection" = "0" ]; do
 		E ) install_greenaddress ; press_enter ;;
 		F ) install_browsers ; press_enter ;;
 		G ) install_pybitcoin ; press_enter ;;
+		H ) install_multibit ; press_enter ;;
+		I ) install_source ; press_enter ;;
+		J ) test_hardwarewallet ; press_enter ;;
+		K ) install_armory_companion ; press_enter ;;
 		! ) update_upgrade ; install_trezor ; install_ledger ; install_electrum ; install_armory ; install_qr_tools ; install_bitaddress ; install_imagemagick ; install_ssss ; install_coinkite ; download_trezor_firmware ; install_bip39 ; install_passguardian ; install_greenaddress ; install_browsers ; install_pybitcoin ; press_enter ;;
 		0 ) exit ;;
 		* ) echo "$(tput setaf 3)$(tput bold mode)Please enter ! - G, or 0$(tput sgr0)"; press_enter
