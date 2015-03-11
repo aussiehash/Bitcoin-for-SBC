@@ -120,7 +120,7 @@ function install_armory
 #		sudo tar -xvzf armory_0.92.3_rpi_bundle.tar.gz
 #		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_raspbian-armhf.tar.gz
 #		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
-		https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
+		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
 		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
 			cd OfflineBundle
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
