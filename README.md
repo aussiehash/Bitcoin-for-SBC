@@ -85,3 +85,7 @@ Piper 1.12 ISO (source)
 		* Text font for Command Line such that QR codes are displayed properly
 		* ? Airgapped offline fresh install  - write raspbian ISO, transfer and install armory offline bundle.  No `apt-get update` or `upgrade` or `install`
 		* ? plug-up security key udev rule
+
+# Future direction
+	* It may be possible to create a fully offline, never connected script, similar to the Armory offline bundle
+		* http://bitzuma.com/posts/offline-installation-of-armory-on-tails-and-ubuntu-linux/
