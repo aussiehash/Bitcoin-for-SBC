@@ -2,7 +2,7 @@
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
 # v0.0.9
-# Last updated on, 3rd Mar 2015
+# Last updated on, 3rd Apr 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -120,8 +120,10 @@ function install_armory
 #		sudo tar -xvzf armory_0.92.3_rpi_bundle.tar.gz
 #		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_raspbian-armhf.tar.gz
 #		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
-		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
-		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
+#		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
+#		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
+		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.1_rpi_bundle.tar.gz
+		sudo tar -xvzf armory_0.93.1_rpi_bundle.tar.gz
 			cd OfflineBundle
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
 		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
@@ -194,6 +196,8 @@ function download_trezor_firmware
 			cd trezor
 			mkdir firmware
 			cd firmware
+		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.3.bin.hex
+		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.2.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.1.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.0.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.2.1.bin.hex
@@ -286,7 +290,7 @@ function test_hardwarewallet
 			cd bin
 		./btchip_getFirmwareVersion #No dongle found
 }
-install_armory_companion
+function install_armory_companion
 {
 	echo "$(tput setaf 1)$(tput bold mode)Install Armory Companion Python (requires python-qrcode and python six$(tput sgr0)"
 			cd ~
