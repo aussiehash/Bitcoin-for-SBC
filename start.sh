@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.0.9
-# Last updated on, 3rd Apr 2015
+# v0.1
+# Last updated on, 28th Apr 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -87,6 +87,11 @@ function install_ledger
 		make
 			cd bin
 		./btchip_getFirmwareVersion #No dongle found
+	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger Chrome Wallet -- (for coinkite multisig)$(tput sgr0)"
+			cd ../..
+		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
+	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger JS API, for 2nd factor card -- (for coinkite multisig)$(tput sgr0)"
+		git clone https://github.com/LedgerHQ/btchip-js-api
 }
 function install_electrum
 {
@@ -354,8 +359,8 @@ until [ "$selection" = "0" ]; do
 	echo "F - Install Chromium 22 and Iceweasel 31.2 on Raspbian, Chromium 40 + Firefox on BBB Ubuntu 14.04"
 	echo "G - Vitalik Buterin's pybitcoin tools"
 	echo "-------------------------------------------------------------------------------------------------"
-	echo "H - Multibit HD beta 0.0.7 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)
-	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)
+	echo "H - Multibit HD beta 0.0.7 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
+	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
 	echo "J - Test installation of Trezor (helloworld) and btchip (pyusb, c-api, python-api).  Insert hardware wallet first ! "
 	echo "K - Install Armory Companion (OPTIONS, untested)"
 	echo ""
