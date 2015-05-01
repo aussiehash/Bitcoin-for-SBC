@@ -1,14 +1,15 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1
-# Last updated on, 28th Apr 2015
+# v0.1.01
+# Last updated on, 2nd May 2015
 
 ## local variable
 #newest_armory_rpi=""
 #trezor_firmwares=""
 #newest_electrum_unix=""
 #newest_multibit=""
+#newest_ledgerwallet=""
 
 ###############################
 #  User Defined Functions    #
@@ -85,11 +86,16 @@ function install_ledger
 			cd btchip-c-api
 			mkdir bin
 		make
+		make -f Makefile.hidapi ## For firmware Version 0.6 - 10.04.15_1 / for LW 1.0.1
 			cd bin
 		./btchip_getFirmwareVersion #No dongle found
 	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger Chrome Wallet -- (for coinkite multisig)$(tput sgr0)"
 			cd ../..
-		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
+#		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
+			mkdir ledger-wallet-chrome-crx
+			cd ledger-wallet-chrome-crx
+		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.2.0/ledger-wallet-1.2.0.crx
+			cd ..
 	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger JS API, for 2nd factor card -- (for coinkite multisig)$(tput sgr0)"
 		git clone https://github.com/LedgerHQ/btchip-js-api
 }
@@ -305,6 +311,23 @@ function install_armory_companion
 	echo "$(tput setaf 1)$(tput bold mode)Install Armory Companion Android(tput sgr0)"
 		git clone https://github.com/hank/armorycompanion.git
 }
+}
+function build_ledger_chrome_wallet
+{
+	echo "$(tput setaf 1)$(tput bold mode)Build ledger-chrome-wallet, requires nodejs, npm, gulp$(tput sgr0)"
+			cd ~
+			mkdir btchip
+			cd btchip
+	echo "$(tput setaf 1)$(tput bold mode)Cloning Ledger Chrome Wallet$(tput sgr0)"
+		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
+	echo "$(tput setaf 1)$(tput bold mode)Installing nodejs, requires curl$(tput sgr0)"
+		curl -sL https://deb.nodesource.com/setup | sudo bash -
+		sudo apt-get install -y nodejs
+	echo "$(tput setaf 1)$(tput bold mode)Building crx in /dist, needs full system memory, close all other apps...$(tput sgr0)"
+		sudo npm install -g gulp
+		sudo npm install
+		gulp package
+}
 ###################################
 # Future To Do List               #
 ###################################
@@ -390,6 +413,7 @@ until [ "$selection" = "0" ]; do
 		I ) install_source ; press_enter ;;
 		J ) test_hardwarewallet ; press_enter ;;
 		K ) install_armory_companion ; press_enter ;;
+		L ) build_ledger_chrome_wallet ; press_enter ;;
 		! ) update_upgrade ; install_trezor ; install_ledger ; install_electrum ; install_armory ; install_qr_tools ; install_bitaddress ; install_imagemagick ; install_ssss ; install_coinkite ; download_trezor_firmware ; install_bip39 ; install_passguardian ; install_greenaddress ; install_browsers ; install_pybitcoin ; press_enter ;;
 		0 ) exit ;;
 		* ) echo "$(tput setaf 3)$(tput bold mode)Please enter ! - G, or 0$(tput sgr0)"; press_enter
