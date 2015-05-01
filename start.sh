@@ -1,7 +1,7 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01
+# v0.1.01.1
 # Last updated on, 2nd May 2015
 
 ## local variable
@@ -187,7 +187,7 @@ function install_ssss
 }
 function install_coinkite
 {
-	echo "$(tput setaf 1)$(tput bold mode)Installing Coinkite command line tools, plus BitMEX beta signing tools$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Installing Coinkite command line tools, plus BitMEX signing tools$(tput sgr0)"
 			cd ~ ; mkdir coinkite ; cd coinkite
 		git clone https://github.com/coinkite/coinkite-python.git
 		git clone https://github.com/coinkite/offline-multisig-python.git
@@ -367,7 +367,7 @@ until [ "$selection" = "0" ]; do
 	echo "! - Install 1-G, no prompts. Recommended. (Approx 200-600Mb, 1-2 hrs)"
 	echo "1 - Update Raspian/Debian (on the Model B+ 8GB NOOBs edition, 392Mb and > 1hour)"
 	echo "2 - Install Trezor + Libs (Cython build takes 15 mins Pi 2 - 40 mins Pi B+)"
-	echo "3 - Install Ledger/BTChip + Libs"
+	echo "3 - Install Ledger/BTChip + Libs, Download Ledger wallet chrome 1.20 and 2nd factor JS"
 	echo "4 - Install Electrum 2 + Libs"
 	echo "5 - Install Armory + Libs (Approx 10 mins and 175Mb)"
 	echo "6 - Install QR Code (Pillow build takes 10mins)"
@@ -386,6 +386,7 @@ until [ "$selection" = "0" ]; do
 	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
 	echo "J - Test installation of Trezor (helloworld) and btchip (pyusb, c-api, python-api).  Insert hardware wallet first ! "
 	echo "K - Install Armory Companion (OPTIONS, untested)"
+	echo "K - Build from source Ledger's Chrome Wallet CRX"
 	echo ""
 	echo "0 - exit program"
 	echo ""
