@@ -1,7 +1,7 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.2
+# v0.1.01.3
 # Last updated on, 2nd May 2015
 
 ## local variable
@@ -385,7 +385,7 @@ until [ "$selection" = "0" ]; do
 	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
 	echo "J - Test installation of Trezor (helloworld) and btchip (pyusb, c-api, python-api).  Insert hardware wallet first ! "
 	echo "K - Install Armory Companion (OPTIONS, untested)"
-	echo "K - Build from source Ledger's Chrome Wallet CRX"
+	echo "L - Build from source Ledger Chrome Wallet crx"
 	echo ""
 	echo "0 - exit program"
 	echo ""
