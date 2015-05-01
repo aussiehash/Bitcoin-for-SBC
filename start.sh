@@ -1,7 +1,7 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.1
+# v0.1.01.2
 # Last updated on, 2nd May 2015
 
 ## local variable
@@ -310,7 +310,6 @@ function install_armory_companion
 		git clone https://github.com/hank/armorycompanion-python.git
 	echo "$(tput setaf 1)$(tput bold mode)Install Armory Companion Android(tput sgr0)"
 		git clone https://github.com/hank/armorycompanion.git
-}
 }
 function build_ledger_chrome_wallet
 {
