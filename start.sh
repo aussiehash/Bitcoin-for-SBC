@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.3
-# Last updated on, 2nd May 2015
+# v0.1.01.4
+# Last updated on, 9th July 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -94,21 +94,22 @@ function install_ledger
 #		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
 			mkdir ledger-wallet-chrome-crx
 			cd ledger-wallet-chrome-crx
-		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.2.0/ledger-wallet-1.2.0.crx
+#		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.2.0/ledger-wallet-1.2.0.crx
+		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.3.10/ledger-wallet-1.3.10.crx
 			cd ..
 	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger JS API, for 2nd factor card -- (for coinkite multisig)$(tput sgr0)"
 		git clone https://github.com/LedgerHQ/btchip-js-api
 }
 function install_electrum
 {
-	echo "$(tput setaf 1)$(tput bold mode)Installing electrum 2.0 beta$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Installing electrum 2.3.3$(tput sgr0)"
 			cd ~
-		sudo apt-get install python-pip python-slowaes python-socksipy pyqt4-dev-tools #E: Unable to locate package python-slowaes
+		sudo apt-get --yes install python-pip python-slowaes python-socksipy pyqt4-dev-tools #E: Unable to locate package python-slowaes
 		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-slowaes python-ecdsa python-zbar #E: Unable to locate package python-ecdsa
 		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-zbar #python-pip is already the newest version.
 		sudo pip install pyasn1 pyasn1-modules pbkdf2 tlslite qrcode
 	echo "$(tput setaf 1)$(tput bold mode)git clone$(tput sgr0)"
-		git clone https://github.com/spesmilo/electrum.git
+		git clone -b 2.3.3 https://github.com/spesmilo/electrum.git
 #Traceback (most recent call last):
 #File "mki18n.py", line 3, in <module>
 #import urllib2, os, zipfile, pycurl
@@ -133,8 +134,10 @@ function install_armory
 #		sudo tar -xvzf armory_0.93_raspbian-armhf.tar.gz
 #		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93_rpi_bundle.tar.gz
 #		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
-		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.1_rpi_bundle.tar.gz
-		sudo tar -xvzf armory_0.93.1_rpi_bundle.tar.gz
+#		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.1_rpi_bundle.tar.gz
+#		sudo tar -xvzf armory_0.93.1_rpi_bundle.tar.gz
+		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.2_rpi_bundle.tar.gz
+		sudo tar -xvzf armory_0.93.2_rpi_bundle.tar.gz
 			cd OfflineBundle
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
 		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
@@ -183,7 +186,7 @@ function install_imagemagick
 function install_ssss
 {
 	echo "$(tput setaf 1)$(tput bold mode)Installing Shamir's Secret Sharing Scheme - ssss-split$(tput sgr0)"
-		sudo apt-get install ssss
+		sudo apt-get --yes install ssss
 }
 function install_coinkite
 {
@@ -259,10 +262,11 @@ function install_multibit
 			cd ~
 			mkdir multibit-hd
 			cd multibit-hd
-		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.0.7beta/multibit-hd-unix-0.0.7beta.sh
+#		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.0.7beta/multibit-hd-unix-0.0.7beta.sh
+		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.1.1/multibit-hd-unix-0.1.1.sh
 		wget https://beta.multibit.org/en/help/hd0.1/how-to-install-linux.html
-		chmod +x multibit-hd-unix-0.0.7beta.sh
-		./multibit-hd-unix-0.0.7beta.sh
+		chmod +x multibit-hd-unix-0.1.1.sh
+		./multibit-hd-unix-0.1.1.sh
 }
 function install_source
 {
@@ -321,7 +325,7 @@ function build_ledger_chrome_wallet
 		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
 	echo "$(tput setaf 1)$(tput bold mode)Installing nodejs, requires curl$(tput sgr0)"
 		curl -sL https://deb.nodesource.com/setup | sudo bash -
-		sudo apt-get install -y nodejs
+		sudo apt-get --yes install -y nodejs
 	echo "$(tput setaf 1)$(tput bold mode)Building crx in /dist, needs full system memory, close all other apps...$(tput sgr0)"
 		sudo npm install -g gulp
 		sudo npm install
