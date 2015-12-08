@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.5
-# Last updated on, 8th Dec 2015
+# v0.1.01.6
+# Last updated on, 9th Dec 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -404,7 +404,7 @@ until [ "$selection" = "0" ]; do
 	echo "F - Install Chromium 22 and Iceweasel 31.2 on Raspbian, Chromium 40 + Firefox on BBB Ubuntu 14.04"
 	echo "G - Vitalik Buterin's pybitcoin tools"
 	echo "-------------------------------------------------------------------------------------------------"
-	echo "H - Multibit HD beta 0.1.4 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
+	echo "H - Multibit HD 0.1.4 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
 	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
 	echo "J - Test installation of Trezor, KeepKey (helloworld) and btchip (pyusb, c-api, python-api).  Plug in hardware wallet first ! "
 	echo "K - Install Armory Companion (OPTIONS, untested)"
