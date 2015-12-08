@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.4
-# Last updated on, 9th July 2015
+# v0.1.01.5
+# Last updated on, 8th Dec 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -28,7 +28,7 @@ function update_upgrade
 		sudo apt-get clean
 		sudo apt-get --yes install -f
 }
-function install_trezor
+function install_trezor_keepkey
 {
 	echo "$(tput setaf 1)$(tput bold mode)This will install several python libraries, then pip, then will build cython 0.21.1"
 	echo "Note the cython compilation time is over 40 mins !"
@@ -62,6 +62,16 @@ function install_trezor
 		git clone https://github.com/trezor/python-mnemonic.git
 			cd python-mnemonic
 		sudo python setup.py install
+	echo "$(tput setaf 1)$(tput bold mode)Installing KeepKey support$(tput sgr0)"
+			cd ~
+			mkdir keepkey
+			cd keepkey
+		git clone https://github.com/keepkey/python-keepkey.git
+			cd python-keepkey
+		sudo python setup.py install
+			cd ..
+		git clone https://github.com/keepkey/udev-rules.git
+		sudo cp udev-rules/51-usb-keepkey.rules /lib/udev/rules.d/
 }
 function install_ledger
 {
@@ -94,22 +104,21 @@ function install_ledger
 #		git clone https://github.com/LedgerHQ/ledger-wallet-chrome.git
 			mkdir ledger-wallet-chrome-crx
 			cd ledger-wallet-chrome-crx
-#		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.2.0/ledger-wallet-1.2.0.crx
-		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.3.10/ledger-wallet-1.3.10.crx
+		wget https://github.com/LedgerHQ/ledger-wallet-chrome/releases/download/1.4.7/ledger-wallet-1.4.7.crx
 			cd ..
 	echo "$(tput setaf 1)$(tput bold mode)Installing the Ledger JS API, for 2nd factor card -- (for coinkite multisig)$(tput sgr0)"
 		git clone https://github.com/LedgerHQ/btchip-js-api
 }
 function install_electrum
 {
-	echo "$(tput setaf 1)$(tput bold mode)Installing electrum 2.3.3$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Installing electrum 2.5.4$(tput sgr0)"
 			cd ~
 		sudo apt-get --yes install python-pip python-slowaes python-socksipy pyqt4-dev-tools #E: Unable to locate package python-slowaes
 		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-slowaes python-ecdsa python-zbar #E: Unable to locate package python-ecdsa
 		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-zbar #python-pip is already the newest version.
 		sudo pip install pyasn1 pyasn1-modules pbkdf2 tlslite qrcode
 	echo "$(tput setaf 1)$(tput bold mode)git clone$(tput sgr0)"
-		git clone -b 2.3.3 https://github.com/spesmilo/electrum.git
+		git clone -b 2.5.4 https://github.com/spesmilo/electrum.git
 #Traceback (most recent call last):
 #File "mki18n.py", line 3, in <module>
 #import urllib2, os, zipfile, pycurl
@@ -136,8 +145,10 @@ function install_armory
 #		sudo tar -xvzf armory_0.93_rpi_bundle.tar.gz
 #		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.1_rpi_bundle.tar.gz
 #		sudo tar -xvzf armory_0.93.1_rpi_bundle.tar.gz
-		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.2_rpi_bundle.tar.gz
-		sudo tar -xvzf armory_0.93.2_rpi_bundle.tar.gz
+#		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.2_rpi_bundle.tar.gz
+#		sudo tar -xvzf armory_0.93.2_rpi_bundle.tar.gz
+		wget https://s3.amazonaws.com/bitcoinarmory-releases/armory_0.93.3_rpi_bundle.tar.gz
+		sudo tar -xvzf armory_0.93.3_rpi_bundle.tar.gz
 			cd OfflineBundle
 	echo "$(tput setaf 1)$(tput bold mode)Untar.gz$(tput sgr0)"
 		sudo python Install_DblClick_RunInTerminal.py ##Granted permissions without asking for password
@@ -210,6 +221,7 @@ function download_trezor_firmware
 			cd trezor
 			mkdir firmware
 			cd firmware
+		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.4.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.3.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.2.bin.hex
 		wget https://raw.githubusercontent.com/trezor/webwallet-data/master/firmware/trezor-1.3.1.bin.hex
@@ -263,10 +275,11 @@ function install_multibit
 			mkdir multibit-hd
 			cd multibit-hd
 #		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.0.7beta/multibit-hd-unix-0.0.7beta.sh
-		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.1.1/multibit-hd-unix-0.1.1.sh
-		wget https://beta.multibit.org/en/help/hd0.1/how-to-install-linux.html
-		chmod +x multibit-hd-unix-0.1.1.sh
-		./multibit-hd-unix-0.1.1.sh
+#		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.1.1/multibit-hd-unix-0.1.1.sh
+		wget https://multibit.org/releases/multibit-hd/multibit-hd-0.1.4/multibit-hd-unix-0.1.4.sh
+		wget https://multibit.org/en/help/hd0.1/how-to-install-linux.html
+		chmod +x multibit-hd-unix-0.1.4.sh
+		./multibit-hd-unix-0.1.4.sh
 }
 function install_source
 {
@@ -287,7 +300,13 @@ function test_hardwarewallet
 			cd ~
 			cd trezor
 			cd python-trezor
-	echo "$(tput setaf 1)$(tput bold mode)helloworld$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Trezor helloworld$(tput sgr0)"
+		python helloworld.py
+	echo "$(tput setaf 1)$(tput bold mode)Testing KeepKey(tput sgr0)"
+			cd ~
+			cd keepkey
+			cd python-keepkey
+	echo "$(tput setaf 1)$(tput bold mode)KeepKey helloworld$(tput sgr0)"
 		python helloworld.py
 	echo "$(tput setaf 1)$(tput bold mode)Testing btchip HW-1$(tput sgr0)"
 			cd ~
@@ -369,7 +388,7 @@ until [ "$selection" = "0" ]; do
 	echo "$(tput setaf 7)$(tput bold mode)RASPBERRY PI COLD OFFLINE SETUP SCRIPT$(tput sgr0)"
 	echo "! - Install 1-G, no prompts. Recommended. (Approx 200-600Mb, 1-2 hrs)"
 	echo "1 - Update Raspian/Debian (on the Model B+ 8GB NOOBs edition, 392Mb and > 1hour)"
-	echo "2 - Install Trezor + Libs (Cython build takes 15 mins Pi 2 - 40 mins Pi B+)"
+	echo "2 - Install Trezor + Libs + KeepKey (Cython build takes 15 mins Pi 2 - 40 mins Pi B+)"
 	echo "3 - Install Ledger/BTChip + Libs, Download Ledger wallet chrome 1.20 and 2nd factor JS"
 	echo "4 - Install Electrum 2 + Libs"
 	echo "5 - Install Armory + Libs (Approx 10 mins and 175Mb)"
@@ -385,9 +404,9 @@ until [ "$selection" = "0" ]; do
 	echo "F - Install Chromium 22 and Iceweasel 31.2 on Raspbian, Chromium 40 + Firefox on BBB Ubuntu 14.04"
 	echo "G - Vitalik Buterin's pybitcoin tools"
 	echo "-------------------------------------------------------------------------------------------------"
-	echo "H - Multibit HD beta 0.0.7 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
+	echo "H - Multibit HD beta 0.1.4 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
 	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
-	echo "J - Test installation of Trezor (helloworld) and btchip (pyusb, c-api, python-api).  Insert hardware wallet first ! "
+	echo "J - Test installation of Trezor, KeepKey (helloworld) and btchip (pyusb, c-api, python-api).  Plug in hardware wallet first ! "
 	echo "K - Install Armory Companion (OPTIONS, untested)"
 	echo "L - Build from source Ledger Chrome Wallet crx"
 	echo ""
@@ -398,7 +417,7 @@ until [ "$selection" = "0" ]; do
 	echo ""
 	case $selection in
 		1 ) update_upgrade ; press_enter ;;
-		2 ) install_trezor ; press_enter ;;
+		2 ) install_trezor_keepkey ; press_enter ;;
 		3 ) install_ledger ; press_enter ;;
 		4 ) install_electrum ; press_enter ;;
 		5 ) install_armory ; press_enter ;;
@@ -418,7 +437,7 @@ until [ "$selection" = "0" ]; do
 		J ) test_hardwarewallet ; press_enter ;;
 		K ) install_armory_companion ; press_enter ;;
 		L ) build_ledger_chrome_wallet ; press_enter ;;
-		! ) update_upgrade ; install_trezor ; install_ledger ; install_electrum ; install_armory ; install_qr_tools ; install_bitaddress ; install_imagemagick ; install_ssss ; install_coinkite ; download_trezor_firmware ; install_bip39 ; install_passguardian ; install_greenaddress ; install_browsers ; install_pybitcoin ; press_enter ;;
+		! ) update_upgrade ; install_trezor_keepkey ; install_ledger ; install_electrum ; install_armory ; install_qr_tools ; install_bitaddress ; install_imagemagick ; install_ssss ; install_coinkite ; download_trezor_firmware ; install_bip39 ; install_passguardian ; install_greenaddress ; install_browsers ; install_pybitcoin ; press_enter ;;
 		0 ) exit ;;
 		* ) echo "$(tput setaf 3)$(tput bold mode)Please enter ! - G, or 0$(tput sgr0)"; press_enter
 	esac
