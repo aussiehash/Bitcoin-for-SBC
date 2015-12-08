@@ -22,7 +22,7 @@ Bitcoiners with an interest in security, who want a cheap simple  and secure col
 # Examples
 
 	* Generating BIP38 paper wallets with bitaddress
-	* Initializing and restoring TREZOR
+	* Initializing and restoring TREZOR and KeepKey
 	* Initializing and restoring HW-1 / Ledger Nano
 	* Test restoring a BIP39 mnemonic on an airgapped machine
 	* Upgrading/Downgrading TREZOR firmware
@@ -55,11 +55,11 @@ Piper 1.12 ISO (source)
 	* Setup and Repo update
 		*	update Raspian/Debian
 	* Installation core apps
-		* install Trezor + Libs
+		* install Trezor + Libs + KeepKey
 		* install BTChip + Libs
 		* install Electrum 2 + Libs
 		* install Armory + Libs
-		* install MultibitHD beta (untested)
+		* install MultibitHD (untested)
 	* Optional installation of non-core apps
 		* install Bitaddress
 		* install Coinkite + BitMEX signing beta tools
@@ -85,6 +85,7 @@ Piper 1.12 ISO (source)
 		* Text font for Command Line such that QR codes are displayed properly
 		* ? Airgapped offline fresh install  - write raspbian ISO, transfer and install armory offline bundle.  No `apt-get update` or `upgrade` or `install`
 		* ? plug-up security key udev rule
+                * Testing on Pi Zero, if I can get my hands on one
 
 # Future direction
 	* It may be possible to create a fully offline, never connected script, similar to the Armory offline bundle
