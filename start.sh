@@ -1,8 +1,8 @@
 #!/bin/bash
 # A shell script to install bitcoin essential libraries on a fresh rasbian/debian on a single board computer.
 # Written by Aussiehash http://www.reddit.com/user/Aussiehash
-# v0.1.01.6
-# Last updated on, 9th Dec 2015
+# v0.1.01.7
+# Last updated on, 15th Dec 2015
 
 ## local variable
 #newest_armory_rpi=""
@@ -115,7 +115,7 @@ function install_electrum
 			cd ~
 		sudo apt-get --yes install python-pip python-slowaes python-socksipy pyqt4-dev-tools #E: Unable to locate package python-slowaes
 		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-slowaes python-ecdsa python-zbar #E: Unable to locate package python-ecdsa
-		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-zbar #python-pip is already the newest version.
+#		sudo apt-get --yes install python-pip python-qt4 pyqt4-dev-tools python-zbar #python-pip is already the newest version.
 		sudo pip install pyasn1 pyasn1-modules pbkdf2 tlslite qrcode
 	echo "$(tput setaf 1)$(tput bold mode)git clone$(tput sgr0)"
 		git clone -b 2.5.4 https://github.com/spesmilo/electrum.git
@@ -270,7 +270,7 @@ function install_pybitcoin
 }
 function install_multibit
 {
-	echo "$(tput setaf 1)$(tput bold mode)Installing MultiBit HD Beta -- UNTESTED$(tput sgr0)"
+	echo "$(tput setaf 1)$(tput bold mode)Installing MultiBit HD -- UNTESTED$(tput sgr0)"
 			cd ~
 			mkdir multibit-hd
 			cd multibit-hd
@@ -407,7 +407,7 @@ until [ "$selection" = "0" ]; do
 	echo "H - Multibit HD 0.1.4 (OPTIONAL untested, NOT yet part of !, likely needs JRE prior)"
 	echo "I - Install Armory github source (OPTIONAL - cannot be built on ARM)"
 	echo "J - Test installation of Trezor, KeepKey (helloworld) and btchip (pyusb, c-api, python-api).  Plug in hardware wallet first ! "
-	echo "K - Install Armory Companion (OPTIONS, untested)"
+	echo "K - Install Armory Companion (OPTIONAL, untested)"
 	echo "L - Build from source Ledger Chrome Wallet crx"
 	echo ""
 	echo "0 - exit program"
